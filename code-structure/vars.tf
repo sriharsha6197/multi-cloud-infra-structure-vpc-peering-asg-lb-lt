@@ -5,7 +5,7 @@ variable "env" {
   
 }
 variable "public_subnets" {
-
+type = list(string)
 }
 variable "from_port" {
   
