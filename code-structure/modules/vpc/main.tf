@@ -39,7 +39,7 @@ resource "aws_route_table" "public_route_tables" {
   }
 }
 resource "aws_route_table_association" "public_route_tables_association" {
-  subnet_id = zipmap(range(length(aws_subnet.public_subnets)),aws_subnet.public_subnets)
+  subnet_id = zipmap(range(length(aws_subnet.public_subnets.id)),aws_subnet.public_subnets.id)
   route_table_id = zipmap(range(length(aws_route_table.public_route_tables.id)),aws_route_table.public_route_tables.id)
 }
 resource "aws_security_group" "security_group_instances" {
