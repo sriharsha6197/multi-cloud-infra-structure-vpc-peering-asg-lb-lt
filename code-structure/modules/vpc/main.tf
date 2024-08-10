@@ -5,11 +5,11 @@ resource "aws_vpc" "vpc" {
   }
 }
 resource "aws_subnet" "public_subnets" {
-  for_each = { for index, b in var.public_subnets : b => {index = index}}
+  for_each = var.public_subnets
   vpc_id     = aws_vpc.vpc.id
   cidr_block = each.value
 
   tags = {
-    Name = "${var.env}-public-subnet-${each.value.index + 1}"
+    Name = "${var.env}-public-subnet-${index(var.public_subnets, each.value) + 1}"
   }
 }
