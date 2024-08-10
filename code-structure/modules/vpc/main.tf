@@ -10,6 +10,6 @@ resource "aws_subnet" "public_subnets" {
   cidr_block = each.value
 
   tags = {
-    Name = "${var.env}-public-subnet-${for_each.count + 1}"
+    Name = "${var.env}-public-subnet-${each.value.index + 1}"
   }
 }
