@@ -13,3 +13,9 @@ resource "aws_subnet" "public_subnets" {
     Name = "${var.env}-public-subnet-${each.key + 1}"
   }
 }
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.vpc.id
+  tags = {
+    Name = "${var.env}-igw"
+  }
+}
