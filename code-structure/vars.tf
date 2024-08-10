@@ -5,5 +5,5 @@ variable "env" {
   
 }
 variable "public_subnets" {
-  type = list(string)
+  type = set(string)
 }
