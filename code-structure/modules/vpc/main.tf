@@ -69,7 +69,7 @@ resource "aws_eip" "eip" {
   domain = "vpc"
 }
 resource "aws_nat_gateway" "nat_gw" {
-  for_each = zipmap(range(length(var.public_subnets)),aws_eip.eip)
+  for_each = zipmap(range(length(resource.aws_eip.eip)),resource.aws_eip.eip)
   allocation_id = each.value
   subnet_id = aws_subnet.public_subnets[each.key].id
   tags = {
