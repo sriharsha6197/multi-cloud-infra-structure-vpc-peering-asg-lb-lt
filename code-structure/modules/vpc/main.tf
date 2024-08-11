@@ -64,18 +64,19 @@ resource "aws_vpc_security_group_egress_rule" "egress_sg" {
   cidr_ipv4 = var.public_rt_cidr_block
   ip_protocol = "-1"
 }
-# resource "aws_eip" "eip" {
-#   for_each = zipmap(range(length(var.public_subnets)),var.public_subnets)
-#   domain = "vpc"
-# }
-# resource "aws_nat_gateway" "nat_gw" {
-#   allocation_id = zipmap(range(length(aws_eip.eip)),aws_eip.eip)
-#   subnet_id = aws_subnet.public_subnets
-#   tags = {
-#     Name = "${var.env}-nat-gw-${each.key + 1}"
-#   }
-#   depends_on = [ aws_internet_gateway.igw ]
-# }
+resource "aws_eip" "eip" {
+  for_each = zipmap(range(length(var.public_subnets)),var.public_subnets)
+  domain = "vpc"
+}
+resource "aws_nat_gateway" "nat_gw" {
+  for_each = zipmap(range(length(aws_eip.eip)),aws_eip.eip)
+  allocation_id = each.value
+  subnet_id = aws_subnet.public_subnets[each.key].id
+  tags = {
+    Name = "${var.env}-nat-gw-${each.key + 1}"
+  }
+  depends_on = [ aws_internet_gateway.igw ]
+}
 # resource "aws_route_table" "private_route_tables" {
 #   for_each = zipmap(range(length(aws_subnet.private_subnets)),var.private_subnets)
 #   vpc_id = aws_vpc.vpc.id
