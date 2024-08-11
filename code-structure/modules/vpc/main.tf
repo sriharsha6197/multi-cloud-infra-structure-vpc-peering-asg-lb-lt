@@ -114,5 +114,5 @@ resource "aws_route" "Peering_connection_private" {
 resource "aws_route" "Peering_connection_from_default_vpc" {
   route_table_id = data.aws_route_table.default.route_table_id
   destination_cidr_block = var.vpc_cidr
-  vpc_peering_connection_id = aws_vpc_peering_connection.vpc_peering.id
+  vpc_peering_connection_id = aws_vpc_peering_connection.vpc_peering.id 
 }
