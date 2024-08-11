@@ -96,3 +96,12 @@ resource "aws_route_table_association" "private_route_table_association" {
   subnet_id = aws_subnet.private_subnets[each.key].id
   route_table_id = aws_route_table.private_route_tables[each.key].id
 }
+resource "aws_vpc_peering_connection" "vpc_peering" {
+  peer_owner_id = data.aws_ami.ami.id
+  peer_vpc_id = data.aws_vpc.default_vpc.id
+  vpc_id = aws_vpc.vpc.id
+  auto_accept = true
+  tags = {
+    Name = "VPC Peering connection between ${aws_vpc.vpc.tags} and ${data.aws_vpc.default_vpc.tags}"
+  }
+}
