@@ -72,8 +72,8 @@ resource "aws_eip" "eip" {
   }
 }
 resource "aws_nat_gateway" "nat_gw" {
-  for_each = zipmap(range(length(var.public_subnets)),resource.aws_eip.eip)
-  allocation_id = each.value
+  for_each = aws_eip.eip
+  allocation_id = each.value.id
   subnet_id = aws_subnet.public_subnets[each.key].id
   tags = {
     Name = "${var.env}-nat-gw-${each.key + 1}"
