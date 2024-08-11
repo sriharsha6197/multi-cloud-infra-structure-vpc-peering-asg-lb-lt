@@ -80,15 +80,19 @@ resource "aws_nat_gateway" "nat_gw" {
   }
   depends_on = [ aws_internet_gateway.igw ]
 }
-# resource "aws_route_table" "private_route_tables" {
-#   for_each = zipmap(range(length(aws_subnet.private_subnets)),var.private_subnets)
-#   vpc_id = aws_vpc.vpc.id
-#   route {
-#     cidr_block = var.public_rt_cidr_block
-#     gateway_id = zipmap(range(length(aws_nat_gateway.nat_gw.id)),aws_nat_gateway.nat_gw.id)
-#   }
-# }
-# resource "aws_route_table_association" "private_route_table_association" {
-#   subnet_id = zipmap(range(length(aws_subnet.private_subnets)),aws_subnet.private_subnets)
-#   route_table_id = zipmap(range(length(aws_route_table.private_route_tables.id)),aws_route_table.private_route_tables.id)
-# }
+resource "aws_route_table" "private_route_tables" {
+  for_each = zipmap(range(length(var.private_subnets)),var.private_subnets)
+  vpc_id = aws_vpc.vpc.id
+  route {
+    cidr_block = var.public_rt_cidr_block
+    gateway_id = aws_nat_gateway.nat_gw[each.key].id
+  }
+  tags = {
+    Name = "${var.env}-private-route-table-${each.key + 1}"
+  }
+}
+resource "aws_route_table_association" "private_route_table_association" {
+  for_each = zipmap(range(length(var.private_subnets)),var.private_subnets)
+  subnet_id = aws_subnet.private_subnets[each.key].id
+  route_table_id = aws_route_table.private_route_tables[each.key].id
+}
