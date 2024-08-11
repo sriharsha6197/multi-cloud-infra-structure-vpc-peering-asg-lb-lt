@@ -71,15 +71,15 @@ resource "aws_eip" "eip" {
     Name = "${var.env}-eip-${each.key + 1}"
   }
 }
-# resource "aws_nat_gateway" "nat_gw" {
-#   for_each = zipmap(range(length(resource.aws_eip.eip)),resource.aws_eip.eip)
-#   allocation_id = each.value
-#   subnet_id = aws_subnet.public_subnets[each.key].id
-#   tags = {
-#     Name = "${var.env}-nat-gw-${each.key + 1}"
-#   }
-#   depends_on = [ aws_internet_gateway.igw ]
-# }
+resource "aws_nat_gateway" "nat_gw" {
+  for_each = zipmap(range(length(resource.aws_eip.eip)),resource.aws_eip.eip)
+  allocation_id = each.value
+  subnet_id = aws_subnet.public_subnets[each.key].id
+  tags = {
+    Name = "${var.env}-nat-gw-${each.key + 1}"
+  }
+  depends_on = [ aws_internet_gateway.igw ]
+}
 # resource "aws_route_table" "private_route_tables" {
 #   for_each = zipmap(range(length(aws_subnet.private_subnets)),var.private_subnets)
 #   vpc_id = aws_vpc.vpc.id
