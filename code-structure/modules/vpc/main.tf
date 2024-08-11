@@ -108,6 +108,6 @@ resource "aws_vpc_peering_connection" "vpc_peering" {
 resource "aws_route" "Peering_connection_private" {
   for_each = zipmap(range(length(var.private_subnets)),var.private_subnets)
   route_table_id = aws_route_table.private_route_tables[each.key].id
-  destination_cidr_block = data.aws_vpc.default_vpc.ipv4_cidr_block
+  destination_cidr_block = data.aws_vpc.default_vpc.cidr_block
   vpc_peering_connection_id = aws_vpc_peering_connection.vpc_peering.id
 }
