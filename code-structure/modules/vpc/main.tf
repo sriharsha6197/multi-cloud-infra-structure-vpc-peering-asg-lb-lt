@@ -54,8 +54,9 @@ resource "aws_security_group" "security_group_instances" {
 resource "aws_vpc_security_group_ingress_rule" "ingress_sg" {
   security_group_id = aws_security_group.security_group_instances.id
   cidr_ipv4 = var.public_rt_cidr_block
-  from_port = var.from_port
-  to_port = var.to_port
+  for_each = zipmap(range(length(var.from_port)), var.from_port)
+  from_port = each.value
+  to_port = each.value
   ip_protocol = "tcp"
 }
 resource "aws_vpc_security_group_egress_rule" "egress_sg" {
