@@ -97,7 +97,7 @@ resource "aws_route_table_association" "private_route_table_association" {
   route_table_id = aws_route_table.private_route_tables[each.key].id
 }
 resource "aws_vpc_peering_connection" "vpc_peering" {
-  peer_owner_id = data.aws_ami.ami.id
+  peer_owner_id = aws_vpc.vpc.owner_id
   peer_vpc_id = data.aws_vpc.default_vpc.id
   vpc_id = aws_vpc.vpc.id
   auto_accept = true
