@@ -25,9 +25,6 @@ variable "alb_type_internal" {
     
   }
 }
-variable "vpc_id" {
-  
-}
 variable "lb_cidr_block" {
   
 }
