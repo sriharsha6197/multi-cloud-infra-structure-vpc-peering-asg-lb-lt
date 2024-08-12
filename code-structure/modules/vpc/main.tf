@@ -40,7 +40,7 @@ resource "aws_route_table" "public_route_tables" {
 }
 resource "aws_route_table_association" "public_route_tables_association" {
   for_each = zipmap(range(length(var.public_subnets)),var.public_subnets)
-  subnet_id = aws_subnet.public_subnets[each.key].id
+  subnet_id = aws_subnet.public_subnet[each.key].id
   route_table_id = aws_route_table.public_route_tables[each.key].id
 }
 resource "aws_security_group" "security_group_instances" {
@@ -74,7 +74,7 @@ resource "aws_eip" "eip" {
 resource "aws_nat_gateway" "nat_gw" {
   for_each = aws_eip.eip
   allocation_id = each.value.id
-  subnet_id = aws_subnet.public_subnets[each.key].id
+  subnet_id = aws_subnet.public_subnet[each.key].id
   tags = {
     Name = "${var.env}-nat-gw-${each.key + 1}"
   }
