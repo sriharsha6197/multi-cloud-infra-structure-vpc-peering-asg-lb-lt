@@ -37,6 +37,3 @@ variable "alb_type" {
 variable "internal" {
   
 }
-variable "subnets" {
-  
-}
