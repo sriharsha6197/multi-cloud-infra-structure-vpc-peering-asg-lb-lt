@@ -20,18 +20,15 @@ variable "private_subnets" {
   
 }
 variable "alb_type_internal" {
-  type = map()
+  type = map(string)
+  default = {
+    
+  }
 }
 variable "vpc_id" {
   
 }
 variable "lb_cidr_block" {
-  
-}
-variable "from_port" {
-  
-}
-variable "to_port" {
   
 }
 variable "alb_type" {
