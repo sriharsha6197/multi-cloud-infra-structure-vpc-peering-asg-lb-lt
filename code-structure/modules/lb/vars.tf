@@ -7,7 +7,7 @@ variable "alb_type" {
 variable "internal" {
   
 }
-variable "public_subnets" {
+variable "subnets" {
   
 }
 variable "vpc_id" {

@@ -15,7 +15,7 @@ module "alb" {
   for_each = var.alb_type_internal
   alb_type = each.value
   internal = each.key
-  public_subnets = module.vpc.public_subnets
+  subnets = module.vpc.public_subnets
   vpc_id = module.vpc.vpc_cidr
   lb_cidr_block = module.vpc.public_rt_cidr_block
   from_port = module.vpc.from_port
