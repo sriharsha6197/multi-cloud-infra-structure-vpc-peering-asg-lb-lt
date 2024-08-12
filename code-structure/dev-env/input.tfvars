@@ -12,4 +12,3 @@ alb_type_internal = {
     true: "private"
 }
 lb_cidr_block = "0.0.0.0/0"
-vpc_id = ""
