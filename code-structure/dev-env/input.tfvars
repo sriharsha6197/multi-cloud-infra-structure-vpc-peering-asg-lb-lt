@@ -6,6 +6,7 @@ from_port = [443,80,22]
 to_port = [443,80,22]
 private_subnets = ["10.0.3.0/24","10.0.4.0/24"]
 alb_type = [""]
+internal = [""]
 alb_type_internal = {
     false : "public",
     true: "private"
