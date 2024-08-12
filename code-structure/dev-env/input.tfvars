@@ -11,3 +11,4 @@ alb_type_internal = {
     false : "public",
     true: "private"
 }
+lb_cidr_block = ""
