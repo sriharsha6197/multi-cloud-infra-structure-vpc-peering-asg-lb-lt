@@ -15,7 +15,7 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_sg" {
   ip_protocol = "tcp"
 }
 resource "aws_vpc_security_group_egress_rule" "egress_sg" {
-  security_group_id = aws_security_group.security_group_instances.id
+  security_group_id = aws_security_group.security_group_lb.id
   cidr_ipv4 = var.lb_cidr_block
   ip_protocol = "-1"
 }
