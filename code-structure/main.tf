@@ -8,3 +8,16 @@ module "vpc" {
   to_port = var.to_port
   private_subnets = var.private_subnets
 }
+
+module "alb" {
+  source = "./modules/lb"
+  env = var.env
+  for_each = var.alb_type_internal
+  alb_type = each.key
+  internal = each.value
+  public_subnets = module.vpc.public_subnets
+  vpc_id = module.vpc.vpc_cidr
+  lb_cidr_block = module.vpc.public_rt_cidr_block
+  from_port = module.vpc.from_port
+  to_port = module.vpc.to_port
+}
