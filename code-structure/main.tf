@@ -17,7 +17,7 @@ module "alb" {
   internal = each.key
   public_subnets = module.vpc.public_subnets
   vpc_id = module.vpc.vpc_CIDR_ID.id
-  lb_cidr_block = module.vpc.pb_rt_cidr_block
+  lb_cidr_block = var.public_rt_cidr_block
   from_port = var.from_port
   to_port = var.to_port
 }
