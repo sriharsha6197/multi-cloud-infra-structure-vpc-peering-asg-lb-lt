@@ -18,6 +18,6 @@ module "alb" {
   public_subnets = module.vpc.public_subnets
   vpc_id = module.vpc.vpc_CIDR
   lb_cidr_block = module.vpc.pb_rt_cidr_block
-  from_port = module.vpc.from_port
-  to_port = module.vpc.to_port
+  from_port = module.vpc.from_PORT
+  to_port = module.vpc.to_PORT
 }
