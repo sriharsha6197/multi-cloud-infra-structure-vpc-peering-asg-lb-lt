@@ -4,7 +4,7 @@ resource "aws_vpc" "vpc" {
     Name = "${var.env}-vpc"
   }
 }
-resource "aws_subnet" "public_subnets" {
+resource "aws_subnet" "public_subnet" {
   for_each = zipmap(range(length(var.public_subnets)),var.public_subnets)
   vpc_id     = aws_vpc.vpc.id
   cidr_block = each.value
