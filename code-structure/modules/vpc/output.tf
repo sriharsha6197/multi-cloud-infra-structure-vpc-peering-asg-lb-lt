@@ -1,5 +1,5 @@
 output "public_subnets" {
-  value = aws_subnet.public_subnets.*.id
+  value = aws_subnet.public_subnets["*"].id
 }
 output "vpc_CIDR" {
   value = var.vpc_cidr
