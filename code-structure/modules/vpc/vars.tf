@@ -19,3 +19,6 @@ variable "to_port" {
 variable "private_subnets" {
   
 }
+variable "public_lb_azs" {
+  
+}

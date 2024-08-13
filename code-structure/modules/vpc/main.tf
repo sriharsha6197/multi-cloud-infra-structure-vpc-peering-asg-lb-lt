@@ -8,6 +8,7 @@ resource "aws_subnet" "public_subnet" {
   for_each = zipmap(range(length(var.public_subnets)),var.public_subnets)
   vpc_id     = aws_vpc.vpc.id
   cidr_block = each.value
+  availability_zone = var.public_lb_azs[each.value]
 
   tags = {
     Name = "${var.env}-public-subnet-${each.key + 1}"
