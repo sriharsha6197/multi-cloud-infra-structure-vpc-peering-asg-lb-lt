@@ -31,3 +31,9 @@ variable "alb_type_internal" {
 }
 variable "public_lb_azs" {
 }
+variable "alb_type" {
+  
+}
+variable "internal" {
+  
+}
