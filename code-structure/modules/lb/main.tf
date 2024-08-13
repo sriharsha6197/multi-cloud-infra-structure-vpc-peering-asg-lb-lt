@@ -15,7 +15,7 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_sg" {
   ip_protocol = "tcp"
 }
 resource "aws_vpc_security_group_egress_rule" "egress_sg" {
-  security_group_id = aws_security_group.security_group_instances.id
+  security_group_id = aws_security_group.security_group_instance.id
   cidr_ipv4 = var.lb_public_cidr_block
   ip_protocol = "-1"
 }
@@ -28,6 +28,6 @@ resource "aws_lb" "test" {
   subnets            = var.SUBNETS
 
   tags = {
-    Environment = "${var.env}-${alb_type}-sg"
+    Environment = "${var.env}-${var.alb_type}-sg"
   }
 }
