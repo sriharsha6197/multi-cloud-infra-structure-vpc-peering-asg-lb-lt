@@ -29,9 +29,6 @@ variable "alb_type_internal" {
     
   }
 }
-variable "azs" {
-  
-}
 variable "public_lb_azs" {
   
 }
