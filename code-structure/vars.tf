@@ -17,3 +17,15 @@ variable "public_rt_cidr_block" {
 }
 variable "private_subnets" {
 }
+variable "vpc_id" {
+  
+}
+variable "SUBNETS" {
+  
+}
+variable "alb_type_internal" {
+  type = map(string)
+  default = {
+    
+  }
+}
