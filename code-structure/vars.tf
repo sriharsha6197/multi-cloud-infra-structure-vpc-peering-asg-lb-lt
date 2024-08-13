@@ -30,5 +30,8 @@ variable "alb_type_internal" {
   }
 }
 variable "public_lb_azs" {
-  
+  type = map(string)
+  default = {
+    
+  }
 }

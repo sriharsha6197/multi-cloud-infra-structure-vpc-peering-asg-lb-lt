@@ -11,4 +11,7 @@ alb_type_internal = {
 }
 SUBNETS =""
 vpc_id = ""
-public_lb_azs = ["us-east-1c","us-east-1d"]
+public_lb_azs = {
+    "us-east-1c",
+    "us-east-1d"
+}
