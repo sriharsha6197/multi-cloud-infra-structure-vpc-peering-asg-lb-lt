@@ -18,7 +18,7 @@ module "alb" {
   vpc_id = module.vpc.vpc_ID
   env = var.env
   lb_public_cidr_block = var.public_rt_cidr_block
-  SUBNETS = alb_type == "public" ? module.vpc.PUBLIC_SUBNETS : module.vpc.PRIVATE_SUBNETS
+  SUBNETS = var.alb_type == "public" ? module.vpc.PUBLIC_SUBNETS : module.vpc.PRIVATE_SUBNETS
   from_port = var.from_port
   to_port = var.to_port
 }
