@@ -28,6 +28,6 @@ resource "aws_lb" "test" {
   subnets            = var.SUBNETS
 
   tags = {
-    Environment = "${var.env}-${var.alb_type}-sg"
+    Environment = "${var.env}-${var.alb_type}-lb"
   }
 }
