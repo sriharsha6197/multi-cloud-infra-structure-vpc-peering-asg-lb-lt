@@ -13,9 +13,9 @@ module "alb" {
   source = "./modules/lb"
   env = var.env
   for_each = var.alb_type_internal
-  alb_type = each.value
-  internal = each.key
-  public_subnets = module.vpc.subnet_ids
+  alb_type = "${var.alb_type_internal["internal_value"]}"
+  internal = "${var.alb_type_internal["type_value"]}"
+  public_subnets = "${var.alb_type_internal["subnets"]}"
   vpc_id = module.vpc.vpc_CIDR_ID
   lb_cidr_block = var.lb_cidr_block
   from_port = var.from_port
