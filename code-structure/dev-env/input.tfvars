@@ -9,7 +9,5 @@ alb_type_internal = {
     false: "public",
     true: "private"
 }
-SUBNETS =""
-vpc_id = ""
 public_lb_azs = ["us-east-1c","us-east-1d"]
     
