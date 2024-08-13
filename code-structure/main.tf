@@ -7,7 +7,6 @@ module "vpc" {
   from_port = var.from_port
   to_port = var.to_port
   private_subnets = var.private_subnets
-  azs = var.azs
 }
 
 module "alb" {
