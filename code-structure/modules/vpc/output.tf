@@ -7,6 +7,3 @@ output "PUBLIC_SUBNETS" {
 output "PRIVATE_SUBNETS" {
   value = values(aws_subnet.private_subnets)[*].id
 }
-output "AZS" {
-  value = values(var.public_lb_azs)[*]
-}

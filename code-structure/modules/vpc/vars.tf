@@ -22,6 +22,3 @@ variable "private_subnets" {
 variable "public_lb_azs" {
   
 }
-variable "AZS" {
-  
-}
