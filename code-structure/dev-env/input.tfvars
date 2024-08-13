@@ -12,3 +12,4 @@ alb_type_internal = {
     true: "private",
 }
 lb_cidr_block = "0.0.0.0/0"
+azs = ["us-east-1c","us-east-1d"]
