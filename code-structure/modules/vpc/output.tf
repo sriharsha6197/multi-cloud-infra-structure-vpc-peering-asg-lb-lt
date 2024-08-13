@@ -5,5 +5,5 @@ output "vpc_CIDR_ID" {
   value = aws_vpc.vpc.id
 }
 output "pvt_subnets" {
-  value = values(resouce.aws_subnet.private_subnets)[*].id
+  value = values(resource.aws_subnet.private_subnets)[*].id
 }
