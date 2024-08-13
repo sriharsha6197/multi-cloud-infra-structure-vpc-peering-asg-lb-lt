@@ -5,7 +5,10 @@ variable "env" {
   
 }
 variable "public_subnets" {
-type = list(string)
+type = map(string)
+default = {
+
+}
 }
 variable "from_port" {
   
@@ -17,6 +20,10 @@ variable "public_rt_cidr_block" {
   
 }
 variable "private_subnets" {
+  type = map(string)
+  default = {
+    
+  }
   
 }
 variable "alb_type_internal" {

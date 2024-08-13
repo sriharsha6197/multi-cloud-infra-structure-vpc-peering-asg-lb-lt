@@ -5,19 +5,20 @@ resource "aws_vpc" "vpc" {
   }
 }
 resource "aws_subnet" "public_subnet" {
-  for_each = zipmap(range(length(var.public_subnets)),var.public_subnets)
+  for_each = var.public_subnets
   vpc_id     = aws_vpc.vpc.id
   cidr_block = each.value
-  availability_zone = var.azs
+  availability_zone = each.key
 
   tags = {
     Name = "${var.env}-public-subnet-${each.key + 1}"
   }
 }
 resource "aws_subnet" "private_subnets" {
-  for_each = zipmap(range(length(var.private_subnets)),var.private_subnets)
+  for_each = var.private_subnets
   vpc_id = aws_vpc.vpc.id
   cidr_block = each.value
+  availability_zone = each.key
   tags = {
     Name = "${var.env}-private_subnet-${each.key + 1}"
   }
