@@ -4,6 +4,6 @@ output "vpc_ID" {
 output "PUBLIC_SUBNETS" {
   value = values(aws_subnet.public_subnet)[*].id
 }
-# output "PRIVATE_SUBNETS" {
-#   value = values(aws_subnet.private_subnets)[*].id
-# }
+output "PRIVATE_SUBNETS" {
+  value = values(aws_subnet.private_subnets)[*].id
+}
