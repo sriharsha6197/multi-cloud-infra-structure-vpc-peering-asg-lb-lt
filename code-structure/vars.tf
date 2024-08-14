@@ -40,3 +40,12 @@ variable "alb_type" {
 variable "internal" {
   
 }
+variable "image_id" {
+  
+}
+variable "instance_type" {
+  
+}
+variable "components" {
+  
+}

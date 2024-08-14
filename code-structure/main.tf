@@ -22,3 +22,17 @@ module "alb" {
   from_port = var.from_port
   to_port = var.to_port
 }
+module "lt" {
+  source = "./modules/lt"
+  env = var.env
+  components = var.components
+  for_each = var.components
+  image_id = module.AWS_AMI
+  instance_type = var.instance_type
+  vpc_id = module.vpc.vpc_ID
+  vpc_cidr = var.vpc_cidr
+  from_port = var.from_port
+  to_port = var.to_port
+  public_rt_cidr_block = var.public_rt_cidr_block
+  private_subnets = module.vpc.PRIVATE_SUBNETS
+}
