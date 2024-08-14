@@ -15,6 +15,6 @@ public_lb_azs = ["us-east-1c","us-east-1d"]
 private_lb_azs = ["us-east-1a","us-east-1b"]
 alb_type = ""
 internal = ""
-instance_type = "t3.micro"
+instance_type = "t2.micro"
 components = ["frontend","backend"]
 image_id = ""
