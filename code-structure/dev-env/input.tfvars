@@ -16,6 +16,5 @@ private_lb_azs = ["us-east-1a","us-east-1b"]
 alb_type = ""
 internal = ""
 instance_type = "t3.micro"
-private_rt_cidr_block = ""
 components = ["frontend","backend"]
 image_id = ""
