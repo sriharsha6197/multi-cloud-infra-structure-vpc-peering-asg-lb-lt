@@ -18,3 +18,4 @@ internal = ""
 instance_type = "t3.micro"
 private_rt_cidr_block = ""
 components = ["frontend","backend"]
+image_id = ""

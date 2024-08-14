@@ -25,7 +25,7 @@ module "alb" {
 module "lt" {
   source = "./modules/lt"
   env = var.env
-  components = var.components
+  components = each.value
   for_each = var.components
   image_id = module.vpc.AWS_AMI
   instance_type = var.instance_type
