@@ -27,7 +27,7 @@ module "lt" {
   env = var.env
   components = var.components
   for_each = var.components
-  image_id = module.AWS_AMI
+  image_id = module.vpc.AWS_AMI
   instance_type = var.instance_type
   vpc_id = module.vpc.vpc_ID
   vpc_cidr = var.vpc_cidr
