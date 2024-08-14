@@ -1,9 +1,9 @@
 resource "aws_security_group" "lt_sg" {
-  name = "${var.env}-lt-sg-"
+  name = "${var.env}-lt-sg-${var.components}"
   description = "${var.env}-lt-sg"
   vpc_id = var.vpc_id
   tags = {
-    Name = "${var.env}-lt-sg"
+    Name = "${var.env}-lt-sg-${var.components}"
   }
 }
 resource "aws_vpc_security_group_ingress_rule" "ingress_sg" {
