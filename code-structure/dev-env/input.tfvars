@@ -18,4 +18,4 @@ internal = ""
 instance_type = "t2.micro"
 components = ["frontend","backend"]
 image_id = ""
-terraform_controller_instance_cidr="172-31-45-11/32"
+terraform_controller_instance_cidr="172.31.45.11/32"
