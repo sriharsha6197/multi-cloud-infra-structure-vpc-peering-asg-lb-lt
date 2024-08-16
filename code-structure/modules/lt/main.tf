@@ -25,12 +25,14 @@ resource "aws_launch_template" "lt" {
   image_id = var.image_id
   instance_type = var.instance_type
   vpc_security_group_ids = [aws_security_group.lt_sg.id]
-
+  user_data = base64encode(templatefile("${path.module}/app_config.sh",{
+    server_component=var.components
+  }))
   tag_specifications {
     resource_type = "instance"
 
     tags = {
-      Name = "${var.env}-lt-${var.components}"
+      Name = "${var.env}-server-${var.components}"
     }
   }
 }
