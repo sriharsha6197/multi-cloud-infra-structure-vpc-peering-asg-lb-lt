@@ -35,4 +35,5 @@ module "lt" {
   to_port = var.to_port
   public_rt_cidr_block = var.public_rt_cidr_block
   private_subnets = module.vpc.PRIVATE_SUBNETS
+  terraform_controller_instance_cidr = var.terraform_controller_instance_cidr
 }
