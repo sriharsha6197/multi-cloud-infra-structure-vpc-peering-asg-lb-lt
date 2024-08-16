@@ -28,3 +28,6 @@ variable "components" {
 variable "private_subnets" {
   
 }
+variable "terraform_controller_instance_cidr" {
+  
+}
