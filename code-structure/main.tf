@@ -36,4 +36,5 @@ module "lt" {
   public_rt_cidr_block = var.public_rt_cidr_block
   private_subnets = module.vpc.PRIVATE_SUBNETS
   terraform_controller_instance_cidr = var.terraform_controller_instance_cidr
+  iam_instance_profile = var.iam_instance_profile
 }
