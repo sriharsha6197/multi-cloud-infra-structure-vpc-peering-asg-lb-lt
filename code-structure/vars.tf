@@ -47,7 +47,7 @@ variable "instance_type" {
   
 }
 variable "components" {
-  type = zipmap(string)
+  
 }
 variable "terraform_controller_instance_cidr" {
   
