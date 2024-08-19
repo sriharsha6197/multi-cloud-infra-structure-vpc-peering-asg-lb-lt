@@ -27,7 +27,7 @@ resource "aws_vpc_security_group_egress_rule" "egress_sg" {
   ip_protocol = "-1"
 }
 resource "aws_iam_role" "lt_servers_role" {
-  for_each = var.components
+  for_each = zipmap(range(length(var.components)),var.components)
   name = "${var.env}-${each.value}-role"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -47,9 +47,9 @@ resource "aws_iam_role" "lt_servers_role" {
   }
 }
 resource "aws_iam_role_policy" "role_policy" {
-  for_each = var.components
+  for_each = zipmap(range(length(var.components)),var.components)
   name = "${var.env}-${each.value}-role-policy"
-  role = aws_iam_role.lt_servers_role.id
+  role = aws_iam_role.lt_servers_role[each.key].id
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -63,13 +63,14 @@ resource "aws_iam_role_policy" "role_policy" {
   })
 }
 resource "aws_iam_instance_profile" "test_profile" {
-  for_each = var.components
+  for_each = zipmap(range(length(var.components)),var.components)
   name = "${var.env}-instance-profile-${each.value}"
-  role = aws_iam_role.lt_servers_role.name
+  role = aws_iam_role.lt_servers_role[each.key].name
 }
 
 resource "aws_launch_template" "lt" {
-  name = "${var.env}-lt-${var.components}"
+  for_each = var.components
+  name = "${var.env}-lt-${each.value}"
   image_id = var.image_id
   instance_type = var.instance_type
   vpc_security_group_ids = [aws_security_group.lt_sg.id]
