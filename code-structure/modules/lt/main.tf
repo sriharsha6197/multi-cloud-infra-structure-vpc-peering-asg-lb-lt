@@ -74,7 +74,7 @@ resource "aws_launch_template" "lt" {
     server_component=var.components
   }))
   iam_instance_profile {
-    name = output.iam_instance_profile1
+    name = output.iam_instance_profile
   }
   tag_specifications {
     resource_type = "instance"
