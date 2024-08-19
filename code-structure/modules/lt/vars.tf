@@ -31,6 +31,3 @@ variable "private_subnets" {
 variable "terraform_controller_instance_cidr" {
   
 }
-variable "iam_instance_profile" {
-  
-}

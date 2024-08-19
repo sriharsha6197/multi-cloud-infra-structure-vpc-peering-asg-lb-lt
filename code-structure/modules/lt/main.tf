@@ -27,7 +27,8 @@ resource "aws_vpc_security_group_egress_rule" "egress_sg" {
   ip_protocol = "-1"
 }
 resource "aws_iam_role" "lt_servers_role" {
-  name = "${var.env}-${var.components}-role"
+  for_each = var.components
+  name = "${var.env}-${each.value}-role"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -42,11 +43,12 @@ resource "aws_iam_role" "lt_servers_role" {
     ]
   })
   tags = {
-    tag-key = "${var.env}-${var.components}-role"
+    tag-key = "${var.env}-${each.value}-role"
   }
 }
 resource "aws_iam_role_policy" "role_policy" {
-  name = "${var.env}-${var.components}-role-policy"
+  for_each = var.components
+  name = "${var.env}-${each.value}-role-policy"
   role = aws_iam_role.lt_servers_role.id
 
   policy = jsonencode({
@@ -61,7 +63,8 @@ resource "aws_iam_role_policy" "role_policy" {
   })
 }
 resource "aws_iam_instance_profile" "test_profile" {
-  name = "${var.env}-instance-profile-${var.components}"
+  for_each = var.components
+  name = "${var.env}-instance-profile-${each.value}"
   role = aws_iam_role.lt_servers_role.name
 }
 
@@ -74,7 +77,7 @@ resource "aws_launch_template" "lt" {
     server_component=var.components
   }))
   iam_instance_profile {
-    name = output.iam_instance_profile
+    name = aws_iam_instance_profile.test_profile.name
   }
   tag_specifications {
     resource_type = "instance"
