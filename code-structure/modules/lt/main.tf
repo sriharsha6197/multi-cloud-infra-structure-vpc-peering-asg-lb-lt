@@ -62,7 +62,7 @@ resource "aws_iam_role_policy" "role_policy" {
 }
 resource "aws_iam_instance_profile" "test_profile" {
   name = "${var.env}-instance-profile-${var.components}"
-  role = aws_iam_role.lt_servers_role.id
+  role = aws_iam_role.lt_servers_role.name
 }
 
 resource "aws_launch_template" "lt" {
