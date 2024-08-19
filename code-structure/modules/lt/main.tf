@@ -69,7 +69,7 @@ resource "aws_iam_instance_profile" "test_profile" {
 }
 
 resource "aws_launch_template" "lt" {
-  for_each = var.components
+  for_each = zipmap(range(length(var.components)),var.components)
   name = "${var.env}-lt-${each.value}"
   image_id = var.image_id
   instance_type = var.instance_type
@@ -78,13 +78,13 @@ resource "aws_launch_template" "lt" {
     server_component=var.components
   }))
   iam_instance_profile {
-    name = aws_iam_instance_profile.test_profile.name
+    name = aws_iam_instance_profile.test_profile[each.key].name
   }
   tag_specifications {
     resource_type = "instance"
 
     tags = {
-      Name = "${var.env}-server-${var.components}"
+      Name = "${var.env}-server-${each.value}"
     }
   }
 }
