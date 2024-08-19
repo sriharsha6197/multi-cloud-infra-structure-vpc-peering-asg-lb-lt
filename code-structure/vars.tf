@@ -47,7 +47,7 @@ variable "instance_type" {
   
 }
 variable "components" {
-  type = list(string)
+  type = map(string)
 }
 variable "terraform_controller_instance_cidr" {
   
