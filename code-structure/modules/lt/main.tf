@@ -90,12 +90,13 @@ resource "aws_launch_template" "lt" {
 }
 
 resource "aws_autoscaling_group" "bar" {
+  for_each = zipmap(range(length(var.components)),var.components)
   desired_capacity   = 1
   max_size           = 1
   min_size           = 1
   vpc_zone_identifier = var.private_subnets
   launch_template {
-    id      = aws_launch_template.lt.id
+    id      = aws_launch_template.lt[each.key].id
     version = "$Latest"
   }
 }
