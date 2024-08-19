@@ -26,7 +26,47 @@ resource "aws_vpc_security_group_egress_rule" "egress_sg" {
   cidr_ipv4 = var.public_rt_cidr_block
   ip_protocol = "-1"
 }
+resource "aws_iam_role" "lt_servers_role" {
+  name = "${var.env}-${var.components}-role"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Sid    = ""
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        }
+      },
+    ]
+  })
+  tags = {
+    tag-key = "${var.env}-${var.components}-role"
+  }
+}
+resource "aws_iam_role_policy" "role_policy" {
+  name = "${var.env}-${var.components}-role-policy"
+  role = aws_iam_role.lt_servers_role.id
 
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "*"
+        Effect   = "Allow"
+        Resource = "*"
+      },
+    ]
+  })
+}
+resource "aws_iam_instance_profile" "test_profile" {
+  name = "${var.env}-instance-profile"
+  role = aws_iam_role.lt_servers_role.id
+}
+output "iam_instance_profile" {
+  value = resource.aws_iam_instance_profile.test_profile.name
+}
 resource "aws_launch_template" "lt" {
   name = "${var.env}-lt-${var.components}"
   image_id = var.image_id
@@ -35,6 +75,9 @@ resource "aws_launch_template" "lt" {
   user_data = base64encode(templatefile("${path.module}/app_config.sh",{
     server_component=var.components
   }))
+  iam_instance_profile {
+    name = output.iam_instance_profile
+  }
   tag_specifications {
     resource_type = "instance"
 
