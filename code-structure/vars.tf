@@ -47,7 +47,7 @@ variable "instance_type" {
   
 }
 variable "components" {
-  type = set(string)
+  type = tuple(string)
 }
 variable "terraform_controller_instance_cidr" {
   
