@@ -64,9 +64,7 @@ resource "aws_iam_instance_profile" "test_profile" {
   name = "${var.env}-instance-profile"
   role = aws_iam_role.lt_servers_role.id
 }
-output "iam_instance_profile" {
-  value = resource.aws_iam_instance_profile.test_profile.name
-}
+
 resource "aws_launch_template" "lt" {
   name = "${var.env}-lt-${var.components}"
   image_id = var.image_id
