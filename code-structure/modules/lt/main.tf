@@ -83,7 +83,7 @@ resource "aws_launch_template" "lt" {
   instance_type = var.instance_type
   vpc_security_group_ids = [aws_security_group.lt_sg.id]
   user_data = base64encode(templatefile("${path.module}/app_config.sh",{
-    server_component=var.components
+    role_name=var.components
   }))
   iam_instance_profile {
     name = aws_iam_instance_profile.test_profile.name
