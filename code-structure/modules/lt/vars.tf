@@ -23,7 +23,7 @@ variable "public_rt_cidr_block" {
   
 }
 variable "components" {
-  type = list(string)
+  
 }
 variable "private_subnets" {
   
