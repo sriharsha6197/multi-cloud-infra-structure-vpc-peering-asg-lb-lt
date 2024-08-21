@@ -27,7 +27,7 @@ resource "aws_vpc_security_group_egress_rule" "egress_sg" {
   ip_protocol = "-1"
 }
 resource "aws_iam_role" "lt_servers_role" {
-  for_each = zipmap(range(length(var.components)),var.components)
+  for_each = var.components
   name = "${var.env}-${each.value}-role"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
