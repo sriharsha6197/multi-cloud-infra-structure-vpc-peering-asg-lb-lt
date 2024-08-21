@@ -16,6 +16,7 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_sg" {
   ip_protocol = "tcp"
 }
 resource "aws_vpc_security_group_ingress_rule" "ingress_rule" {
+  for_each = zipmap(range(length(var.components)),var.components)
   security_group_id = aws_security_group.lt_sg[each.key].id
   cidr_ipv4 = var.terraform_controller_instance_cidr
   from_port = 22
@@ -23,6 +24,7 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_rule" {
   ip_protocol = "tcp"
 }
 resource "aws_vpc_security_group_egress_rule" "egress_sg" {
+  for_each = zipmap(range(length(var.components)),var.components)
   security_group_id = aws_security_group.lt_sg[each.key].id
   cidr_ipv4 = var.public_rt_cidr_block
   ip_protocol = "-1"
