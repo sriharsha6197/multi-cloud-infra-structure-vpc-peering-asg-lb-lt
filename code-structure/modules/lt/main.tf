@@ -7,7 +7,7 @@ resource "aws_security_group" "lt_sg" {
   }
 }
 resource "aws_vpc_security_group_ingress_rule" "ingress_sg" {
-  for_each = var.from_port
+  for_each = zipmap(range(length(var.from_port)), var.from_port)
   security_group_id = aws_security_group.lt_sg.id
   cidr_ipv4 = var.vpc_cidr
   from_port = each.value
