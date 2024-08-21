@@ -7,6 +7,7 @@ resource "aws_security_group" "lt_sg" {
   }
 }
 resource "aws_vpc_security_group_ingress_rule" "ingress_sg" {
+  for_each = var.from_port
   security_group_id = aws_security_group.lt_sg.id
   cidr_ipv4 = var.vpc_cidr
   from_port = each.value
@@ -80,7 +81,7 @@ resource "aws_launch_template" "lt" {
   name = "${var.env}-lt-${var.components}"
   image_id = var.image_id
   instance_type = var.instance_type
-  vpc_security_group_ids = [aws_security_group.lt_sg[each.key].id]
+  vpc_security_group_ids = [aws_security_group.lt_sg.id]
   user_data = base64encode(templatefile("${path.module}/app_config.sh",{
     server_component=var.components
   }))
