@@ -8,7 +8,7 @@ resource "aws_security_group" "lt_sg" {
   }
 }
 resource "aws_vpc_security_group_ingress_rule" "ingress_sg" {
-  security_group_id = aws_security_group.lt_sg.id
+  security_group_id = aws_security_group.lt_sg[each.key].id
   cidr_ipv4 = var.vpc_cidr
   for_each = zipmap(range(length(var.from_port)), var.from_port)
   from_port = each.value
@@ -16,14 +16,14 @@ resource "aws_vpc_security_group_ingress_rule" "ingress_sg" {
   ip_protocol = "tcp"
 }
 resource "aws_vpc_security_group_ingress_rule" "ingress_rule" {
-  security_group_id = aws_security_group.lt_sg.id
+  security_group_id = aws_security_group.lt_sg[each.key].id
   cidr_ipv4 = var.terraform_controller_instance_cidr
   from_port = 22
   to_port = 22
   ip_protocol = "tcp"
 }
 resource "aws_vpc_security_group_egress_rule" "egress_sg" {
-  security_group_id = aws_security_group.lt_sg.id
+  security_group_id = aws_security_group.lt_sg[each.key].id
   cidr_ipv4 = var.public_rt_cidr_block
   ip_protocol = "-1"
 }
