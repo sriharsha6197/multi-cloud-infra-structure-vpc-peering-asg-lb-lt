@@ -29,6 +29,12 @@ resource "aws_vpc_security_group_egress_rule" "egress_sg" {
   cidr_ipv4 = var.public_rt_cidr_block
   ip_protocol = "-1"
 }
+
+
+
+
+
+
 resource "aws_iam_role" "lt_servers_role" {
   for_each = zipmap(range(length(var.components)),var.components)
   name = "${var.env}-${each.value}-role"
@@ -71,6 +77,12 @@ resource "aws_iam_instance_profile" "test_profile" {
   role = aws_iam_role.lt_servers_role[each.key].name
 }
 
+
+
+
+
+
+
 resource "aws_launch_template" "lt" {
   for_each = zipmap(range(length(var.components)),var.components)
   name = "${var.env}-lt-${each.value}"
@@ -91,7 +103,6 @@ resource "aws_launch_template" "lt" {
     }
   }
 }
-
 resource "aws_autoscaling_group" "bar" {
   for_each = zipmap(range(length(var.components)),var.components)
   desired_capacity   = 1
