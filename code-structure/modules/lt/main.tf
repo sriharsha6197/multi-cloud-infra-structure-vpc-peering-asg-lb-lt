@@ -1,9 +1,10 @@
 resource "aws_security_group" "lt_sg" {
-  name = "${var.env}-lt-sg-${var.components}"
+  for_each = zipmap(range(length(var.components)),var.components)
+  name = "${var.env}-lt-sg-${each.value}"
   description = "${var.env}-lt-sg"
   vpc_id = var.vpc_id
   tags = {
-    Name = "${var.env}-lt-sg-${var.components}"
+    Name = "${var.env}-lt-sg-${each.value}"
   }
 }
 resource "aws_vpc_security_group_ingress_rule" "ingress_sg" {
@@ -27,7 +28,7 @@ resource "aws_vpc_security_group_egress_rule" "egress_sg" {
   ip_protocol = "-1"
 }
 resource "aws_iam_role" "lt_servers_role" {
-  for_each = var.components
+  for_each = zipmap(range(length(var.components)),var.components)
   name = "${var.env}-${each.value}-role"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -73,7 +74,7 @@ resource "aws_launch_template" "lt" {
   name = "${var.env}-lt-${each.value}"
   image_id = var.image_id
   instance_type = var.instance_type
-  vpc_security_group_ids = [aws_security_group.lt_sg.id]
+  vpc_security_group_ids = [aws_security_group.lt_sg[each.key].id]
   user_data = base64encode(templatefile("${path.module}/app_config.sh",{
     server_component=var.components
   }))
